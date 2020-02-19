@@ -6,5 +6,5 @@ To store geospatial data the extension [Postgis](https://postgis.net/) has to be
 In this folder you can find the following resources:
 
 * A database dump to be restored in a PostgreSQL server (Version 10 or superior)
-* A set of [queries](query_examples.sql) (written in SQL) to test out the basic features of this query language.
-* A set of [commands](configuration_examples.sql) to manually configurate the database environment if needed.
+* A set of [queries](query_examples.sql) (written in SQL) to test out the basic and [spatial](spatial_query_examples.sql) features of this query language.
+* A set of [commands](configuration_examples.sql) to manually configure the database environment if needed.
