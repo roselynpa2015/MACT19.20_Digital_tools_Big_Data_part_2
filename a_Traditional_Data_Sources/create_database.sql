@@ -1,24 +1,46 @@
+--- encoding: utf-8
+
+--------------------------------------------------
+-- This script contains examples to create a database structure for postgreSQL. It uses the SQL language for postgreSQL
+-- It can be executed using pgadmin. This exercise aims to provide a basic example of how to create a database
+-- You need either to have a connection with a postgreSQL server or a local server configured
+-- To install postGIS see the documentation here https://www.postgresql.org/docs/
+--------------------------------------------------
+-
+--------------------------------------------------
+-- Author: Diego Pajarito
+-- Copyright: Copyright 2020, IAAC
+-- Credits: [Institute for Advanced Architecture of Catalonia -- IAAC, Advanced Architecture group]
+-- License:  Apache License Version 2.0
+-- Version: 1.0.0
+-- Maintainer: Diego Pajarito
+-- Email: diego.pajarito@iaac.net
+-- Status: development
+--------------------------------------------------
 
 
--- create user;
+------------------------------------------------------
+-- General database configuration
+
+--- create user;
 CREATE role mact WITH login encrypted password 'mact';
 
--- Create database;
+--- Create database;
 CREATE DATABASE example WITH OWNER = class;
 
--- Add the postgis extension to database
+--- Add the postgis extension to database
 CREATE extension postgis;
 
 ------------------------------------------------------
--- Table districts
+--- Table districts
 CREATE TABLE districts(
     code varchar PRIMARY KEY,
     name varchar);
 
--- (Only for information) To delete the table
+--- (Only for information) To delete the table
 DROP TABLE districts;
 
--- Load data into table districts
+--- Load data into table districts
 INSERT INTO districts VALUES ('01', 'Ciutat Vella');
 INSERT INTO districts VALUES ('02', 'Eixample');
 INSERT INTO districts VALUES ('03', 'Sants-Montjuïc');
@@ -31,7 +53,7 @@ INSERT INTO districts VALUES ('09', 'Sant Andreu');
 INSERT INTO districts VALUES ('10', 'Sant Martí');
 
 ------------------------------------------------------
--- Table population
+--- Table population
 CREATE TABLE population(
     district varchar,
     neighbourhood varchar,
@@ -41,10 +63,10 @@ CREATE TABLE population(
 
 ALTER TABLE population ADD CONSTRAINT pk_population PRIMARY KEY (district, neighbourhood, year, gender);
 
--- (Only for information) To delete the table
+--- (Only for information) To delete the table
 DROP TABLE population;
 
--- Load data into table popualtion
+--- Load data into table population
 INSERT INTO population VALUES ('01','01',2017,'Male',25802);
 INSERT INTO population VALUES ('01','02',2017,'Male',8354);
 INSERT INTO population VALUES ('01','03',2017,'Male',7455);
