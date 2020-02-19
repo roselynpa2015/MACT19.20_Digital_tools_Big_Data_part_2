@@ -1,4 +1,4 @@
---- encoding: utf-8
+﻿--- encoding: utf-8
 
 --------------------------------------------------
 -- This script contains examples to create a database structure for postgreSQL. It uses the SQL language for postgreSQL
@@ -59,7 +59,7 @@ CREATE TABLE population(
     neighbourhood varchar,
     year integer,
     gender varchar,
-    population varchar);
+    population integer);
 
 ALTER TABLE population ADD CONSTRAINT pk_population PRIMARY KEY (district, neighbourhood, year, gender);
 
