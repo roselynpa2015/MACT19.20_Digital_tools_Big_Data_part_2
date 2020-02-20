@@ -26,7 +26,7 @@
 CREATE role mact WITH login encrypted password 'mact';
 
 --- Create database;
-CREATE DATABASE example WITH OWNER = class;
+CREATE DATABASE example WITH OWNER = mact;
 
 --- Add the postgis extension to database
 CREATE extension postgis;
