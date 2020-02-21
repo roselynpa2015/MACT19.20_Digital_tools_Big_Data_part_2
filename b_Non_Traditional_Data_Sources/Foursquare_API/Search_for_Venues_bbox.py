@@ -23,9 +23,7 @@ import pandas as pd
 import requests
 
 # open csv file with containing the limits fo a grid cell array
-df_grid = pd.read_csv('./grid/grid.csv')
-# Get only the
-df_grid = df_grid[['left', 'top']]
+df_grid = pd.read_csv('./grid/grid_poblenou.csv')
 
 # Due to limitation of calls per day, you should use up to 500 elements for testing
 df_grid = df_grid.iloc[0:500]
@@ -44,19 +42,18 @@ url = 'https://api.foursquare.com/v2/venues/search'
 # make a for loop to iterate through the points of the grid created in QGIS to extract all lot and lat
 for i in df_grid.index:
     # this is to extract the lon and lat of each point
-    lon = df_grid['left'][i]
-    lat = df_grid['top'][i]
     # concatenate lon and lat values. Be aware of the need to cast from number to string.
-    lat_lon = str(lat) + ',' + str(lon)
+    sw = str(df_grid['bottom'][i]) + ',' + str(df_grid['left'][i])
+    ne = str(df_grid['top'][i]) + ',' + str(df_grid['right'][i])
 
     # parameters taken from the API developers page 'search for venues' (same as above)
     params = dict(
         client_id='BSPERAIDNGF15MW2FOSPQVAPM0K00QDMCMAMIT2H4M1M0TYO',
         client_secret='0V0TQGF3HJDDNZAKNIJNGPVUPHLLQHPRQ5TPSTJDISV2LIUJ',
         v='20180323',
-        ll=lat_lon,  # each time it is replaced with new coordinates
+        sw=sw,  # each time it is replaced with new coordinates
+        ne=ne,
         intent='browse',
-        radius=30,
         limit=100
     )
 
