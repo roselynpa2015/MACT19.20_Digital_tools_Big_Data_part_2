@@ -24,31 +24,35 @@ import requests
 
 # url taken by the Foursquare API developers page -> Places API -> Venues -> Search for venues
 url = 'https://api.opencagedata.com/geocode/v1/json'
-key = 'bef905ac2d914bb19cba534d4ea83b74'
+key = 'replace_with_your_key'
+city = 'Barcelona, Catalonia'
+
 
 # input_addresses. This JSON file is the output coming from the Scrapy spider
-with open('./addresses/restaurants_bcn.json') as json_file:
+with open('./addresses/restaurants_bcn_short.json') as json_file:
     data = json.load(json_file)
 
 addresses = pd.DataFrame.from_dict(data=data)
 
 # We add three new columns to store main API outcomes
-# addresses['address_formatted'] = ''
-# addresses['lat'] = ''
+addresses['address_formatted'] = ''
+addresses['lat'] = float('NaN')
+addresses['lon'] = float('NaN')
 
 
 for i in addresses.index:
-    input_address = addresses['street'][i]
+    input_address = addresses['street'][i] + ', ' + city
     params = dict(q=input_address, key=key)
     resp = requests.get(url=url, params=params)
+    print(resp)
     output = resp.json()
-    if len(output['results']) > 0: # Use the codes
+    if len(output['results']) > 0:
         # Print the raw response
         first_result = output['results'][0]
-        addresses['address_formatted'] = first_result['formatted']
-        addresses['lat'] = first_result['geometry']['lat']
-        addresses['lon'] = first_result['geometry']['lng']
-        print('Success: %s -- geocoded' % input_address)
+        addresses['address_formatted'][i] = first_result['formatted']
+        addresses['lat'][i] = first_result['geometry']['lat']
+        addresses['lon'][i] = first_result['geometry']['lng']
+        print('Success: %s -- geocoded -- Coords: %f - %f' % (input_address, addresses['lat'][i], addresses['lon'][i]))
     else:
         print('Error: %s -- not found' % input_address)
 
