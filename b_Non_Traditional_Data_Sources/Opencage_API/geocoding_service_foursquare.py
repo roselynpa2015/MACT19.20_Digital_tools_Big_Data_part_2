@@ -34,6 +34,7 @@ with open('./addresses/restaurants_bcn.json') as json_file:
 
 addresses = pd.DataFrame.from_dict(data=data)
 addresses = addresses[addresses['street'].notnull()]
+# Use this if you want to reduce the number of records to process (e.g., only one thousand)
 addresses = addresses.iloc[1001:2000]
 
 # We add three new columns to store main API outcomes
