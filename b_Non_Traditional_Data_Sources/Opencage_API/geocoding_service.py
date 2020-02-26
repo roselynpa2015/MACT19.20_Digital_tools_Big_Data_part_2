@@ -30,7 +30,7 @@ address_1 = 'Carrer de pujades, 102'
 # This object contains the parameters needed for
 params = dict(
     q=address_1,
-    key='replace_with_your_key'
+    key='a1dbe104ed0f48a083fcb33907994c36'
 )
 resp = requests.get(url=url, params=params)
 # Print the raw response
